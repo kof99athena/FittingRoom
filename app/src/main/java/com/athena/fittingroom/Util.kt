@@ -2,6 +2,7 @@ package com.athena.fittingroom
 
 import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import java.io.IOException
 
 //파일은 string으로 받아오고, gson에 넘겨주는 클래스파일
@@ -13,10 +14,13 @@ fun <T> Context.readData(fileName: String, classT: Class<T>): T? {
         inputStream.close()
 
         val gson = Gson()
-        gson.fromJson(inputStream.toString(),classT)
+        gson.fromJson(String(byteArray),classT)
 
     } catch (e: IOException) {
         //try에서 나온 에러가 캐치의 영역에 빠진다. e로 받는다.
         null //null 리턴한다.
+    } catch (e: JsonSyntaxException){
+        e.printStackTrace()
+        null //JsonSyntaxException 경우에도 추가하기
     }
 }

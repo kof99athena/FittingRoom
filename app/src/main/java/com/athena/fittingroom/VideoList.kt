@@ -21,7 +21,7 @@ data class VideoItem(
     val channelThumb : String,
 
     @SerializedName("thumb")
-    val videoThumb : String
+    val videoThumb : String,
 )
 
 
