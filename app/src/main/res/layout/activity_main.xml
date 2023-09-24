@@ -1,18 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motionLayout"
+    app:layoutDescription="@xml/player_scene"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <!--0dp인 이유는? ConstraintLayout 아래 있으니까,   -->
+    <!--    match를 쓰지않는 이유? 뷰를 완전히 채우는거는 같지만 -->
+    <!--    ConstraintLayout의 제약조건을 활용하기 위해 0dp를 사용한다. -->
+    <!--    CoordinatorLayout 상단 앱바의 모션이 들어간다.-->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/surface">
+
+            <!--         Toolbar는 뷰그룹이다. 그래서 안에 view를 추가할수있다.   -->
+            <!--         리사이클러뷰가 올라갔다가 내려갔다할때 같이 움직이게끔-->
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll">
+
+                <TextView
+                    android:id="@+id/appBarTitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/app_logo"
+                    android:drawablePadding="@dimen/text_small"
+                    android:text="@string/app_name"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/text_large" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/videoListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/surface"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/videoPlayerContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/surface"
+        app:layout_constraintDimensionRatio="H,16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/tertiary"
+        app:layout_constraintBottom_toBottomOf="@+id/videoPlayerContainer"
+        app:layout_constraintEnd_toEndOf="@id/videoPlayerContainer"
+        app:layout_constraintStart_toStartOf="@+id/videoPlayerContainer"
+        app:layout_constraintTop_toTopOf="@+id/videoPlayerContainer" />
+
+    <TextView
+        android:id="@+id/videoTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/text_medium"
+        app:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
+        app:layout_constraintEnd_toStartOf="@+id/controlButton"
+        app:layout_constraintStart_toEndOf="@id/playerView"
+        app:layout_constraintTop_toTopOf="@id/videoPlayerContainer" />
+
+    <!--    tools:alpha는 레이아웃 확인용으로 보는것이다. 실제적용은 android:alpha로 적용된다.-->
+    <ImageView
+        android:id="@+id/controlButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:padding="@dimen/padding_small"
+        android:src="@drawable/play"
+        app:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
+        app:layout_constraintEnd_toStartOf="@id/hideButton"
+        app:layout_constraintTop_toTopOf="@id/videoPlayerContainer"
+        tools:alpha="1" />
+
+    <ImageView
+        android:id="@+id/hideButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:padding="@dimen/padding_small"
+        android:src="@drawable/cancle"
+        app:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
+        app:layout_constraintEnd_toEndOf="@id/videoPlayerContainer"
+        app:layout_constraintTop_toTopOf="@id/videoPlayerContainer"
+        tools:alpha="1" />
+
+    <FrameLayout
+        android:id="@+id/recyclerViewContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/surface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoPlayerContainer" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playerRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerViewContainer"
+        app:layout_constraintEnd_toEndOf="@id/recyclerViewContainer"
+        app:layout_constraintStart_toStartOf="@id/recyclerViewContainer"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewContainer" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
