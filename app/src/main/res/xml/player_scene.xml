@@ -10,11 +10,18 @@
         motion:duration="300"
         motion:motionInterpolator="linear">
         <!--        10%일때 0.1로 깎인다. 즉 투명해진다. -->
-        <KeyFrameSet>
 
+        <OnSwipe
+            motion:touchAnchorId="@id/videoPlayerContainer"/>
+<!--        이걸 스와이프했을때 애니메이션이실행된다. -->
+        <OnClick
+            motion:targetId="@+id/videoPlayerContainer"
+            motion:clickAction="transitionToEnd"/>
+
+        <KeyFrameSet>
             <!--motion:percentX="0"은 뷰를 수평으로 왼쪽 끝에 위치
-            motion:percentX="1"은 뷰를 수평으로 오른쪽 끝에 위치
-            motion:percentX="0.5"는 뷰를 수평으로 중앙에 위치-->
+                motion:percentX="1"은 뷰를 수평으로 오른쪽 끝에 위치
+                motion:percentX="0.5"는 뷰를 수평으로 중앙에 위치-->
             <KeyPosition
                 motion:curveFit="linear"
                 motion:framePosition="10"
@@ -40,6 +47,11 @@
                 motion:motionTarget="@+id/controlButton" />
         </KeyFrameSet>
     </Transition>
+
+    <Transition
+        motion:constraintSetStart="@+id/collapse"
+        motion:duration="300"
+        motion:constraintSetEnd="@+id/hide" />
 
 
     <ConstraintSet android:id="@+id/expand">
@@ -200,6 +212,84 @@
             motion:layout_constraintStart_toStartOf="parent" />
 
     </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/hide">
+        <Constraint
+            android:id="@+id/videoPlayerContainer"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            motion:layout_constraintTop_toTopOf="@id/bottomNavigationView"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/playerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/videoPlayerContainer"
+            motion:layout_constraintDimensionRatio="H,1:2.5"
+            motion:layout_constraintStart_toStartOf="@+id/videoPlayerContainer"
+            motion:layout_constraintTop_toTopOf="@+id/videoPlayerContainer" />
+
+        <Constraint
+            android:id="@+id/videoTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
+            motion:layout_constraintEnd_toStartOf="@+id/controlButton"
+            motion:layout_constraintStart_toEndOf="@id/playerView"
+            motion:layout_constraintTop_toTopOf="@id/videoPlayerContainer" />
+
+        <Constraint
+            android:id="@+id/controlButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
+            motion:layout_constraintEnd_toStartOf="@id/hideButton"
+            motion:layout_constraintTop_toTopOf="@id/videoPlayerContainer" />
+
+        <Constraint
+            android:id="@+id/hideButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="@id/videoPlayerContainer"
+            motion:layout_constraintEnd_toEndOf="@id/videoPlayerContainer"
+            motion:layout_constraintTop_toTopOf="@id/videoPlayerContainer" />
+
+        <Constraint
+            android:id="@+id/recyclerViewContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="@id/bottomNavigationView"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/videoPlayerContainer" />
+
+        <Constraint
+            android:id="@+id/playerRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            motion:layout_constraintBottom_toBottomOf="@id/recyclerViewContainer"
+            motion:layout_constraintEnd_toEndOf="@id/recyclerViewContainer"
+            motion:layout_constraintStart_toStartOf="@id/recyclerViewContainer"
+            motion:layout_constraintTop_toTopOf="@id/recyclerViewContainer" />
+
+        <Constraint
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+
+
 
 
 </MotionScene>

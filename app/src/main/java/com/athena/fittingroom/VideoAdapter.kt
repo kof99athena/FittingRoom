@@ -52,6 +52,7 @@ class VideoAdapter(val context: Context,
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
         holder.bind(currentList[position])
 
+
     }
 
     companion object {
