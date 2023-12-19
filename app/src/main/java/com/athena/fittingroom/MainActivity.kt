@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         initVideoRecyclerView()
 
         initControlButton()
+
         binding.hideButton.setOnClickListener {
             binding.motionLayout.transitionToState(R.id.hide)
             player?.pause()

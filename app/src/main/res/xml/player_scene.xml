@@ -17,6 +17,7 @@
         <OnClick
             motion:targetId="@+id/videoPlayerContainer"
             motion:clickAction="transitionToEnd"/>
+
         <KeyFrameSet>
             <!--motion:percentX="0"은 뷰를 수평으로 왼쪽 끝에 위치
                 motion:percentX="1"은 뷰를 수평으로 오른쪽 끝에 위치

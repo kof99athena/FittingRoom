@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.athena.fittingroom.ExoPlayerMotionLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.athena.fittingroom.ExoPlayerMotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/motionLayout"
-    app:layoutDescription="@xml/player_scene"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/player_scene"
     tools:context=".MainActivity">
 
     <!--0dp인 이유는? ConstraintLayout 아래 있으니까,   -->
@@ -72,11 +71,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/tertiary"
-        app:resize_mode="fixed_width"
         app:layout_constraintBottom_toBottomOf="@+id/videoPlayerContainer"
         app:layout_constraintEnd_toEndOf="@id/videoPlayerContainer"
         app:layout_constraintStart_toStartOf="@+id/videoPlayerContainer"
-        app:layout_constraintTop_toTopOf="@+id/videoPlayerContainer" />
+        app:layout_constraintTop_toTopOf="@+id/videoPlayerContainer"
+        app:resize_mode="fixed_width" />
 
     <TextView
         android:id="@+id/videoTitleTextView"
